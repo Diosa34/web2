@@ -27,3 +27,29 @@ function rSelect(elem){
     selectedElem = elem
     document.getElementById("selected-elem").value = elem.value
 }
+
+let svg = document.getElementById("svg").getBoundingClientRect() // координаты мыши относительно окна
+let rWarning = document.getElementById("select-warning")
+
+svg.onclick = function (event) {
+    if (isRSelected()) {
+        rWarning.style.display = "none"
+        let x = event.clientX - svg.left
+        let y = event.clientY - svg.top
+        let url = new URL('/controller');
+        url.searchParams.set("x", x);
+        url.searchParams.set("y", y);
+        let xhr = new XMLHttpRequest();
+        xhr.open("GET", url, false);
+        xhr.send();
+    } else {
+        rWarning.innerText = "Невозможно определить координату точки"
+        rWarning.style.display = "inline-block"
+    }
+}
+
+function isRSelected() {
+    let rElem = document.getElementById("select")
+    return (isNaN(rElem.value) || rElem.value === "" || +rElem.value <= 0 || 6 <= +rElem.value)
+}
+
