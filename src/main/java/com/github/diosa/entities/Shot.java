@@ -8,6 +8,22 @@ public class Shot {
     public static final double MIN_R = 1;
     public static final double MAX_R = 5;
 
+    public void setX(double x) {
+        this.x = x;
+    }
+
+    public void setY(double y) {
+        this.y = y;
+    }
+
+    public void setR(double r) {
+        this.r = r;
+    }
+
+    public void setArea(String area) {
+        this.area = area;
+    }
+
     private double x;
     private double y;
     private double r;
@@ -30,7 +46,7 @@ public class Shot {
         checkValid();
     }
 
-    private void checkValid() {
+    public void checkValid() {
         if (isInit) {
             valid = (x >= MIN_X && x <= MAX_X &&
                      y >= MIN_Y && y <= MAX_Y &&

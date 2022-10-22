@@ -39,7 +39,8 @@ div.graphic-part {
 }
 
 div.graphic-part svg{
-    padding-top: 1em;
+    aspect-ratio: 1/1;
+    margin-top: 1em;
     font-size: 2rem;
     width: 100%;
 }
@@ -47,7 +48,7 @@ div.graphic-part svg{
 div.right-block{
     display: table-cell;
     width: 100%;
-    vertical-align: bottom;
+    padding-top: 4%;
     text-align: right;
 }
 
@@ -89,6 +90,17 @@ input#submit{
 
 div.right-block form {
     display: inline-block;
+    margin-right: 4%;
+    margin-top: 4%;
+}
+
+table.result-table td{
+    border: 1px solid black;
+    padding: 3px;
+}
+
+table.result-table{
+    border-collapse: collapse;
     margin-left: auto;
-    margin-right: 100px;
+    margin-right: 4%;
 }

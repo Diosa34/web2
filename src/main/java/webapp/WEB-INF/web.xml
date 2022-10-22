@@ -13,7 +13,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>ControllerServlet</servlet-name>
-        <url-pattern>/controller</url-pattern>
+        <url-pattern>/ControllerServlet</url-pattern>
     </servlet-mapping>
 
     <servlet>
@@ -22,7 +22,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>AreaCheckServlet</servlet-name>
-        <url-pattern>/checker</url-pattern>
+        <url-pattern>/AreaCheckServlet</url-pattern>
     </servlet-mapping>
 
 </web-app>

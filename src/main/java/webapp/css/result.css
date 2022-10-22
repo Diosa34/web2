@@ -12,10 +12,6 @@ img#gif {
     width: 25vw;
 }
 
-table::before {
-    content: "♥";
-}
-
 table.result-table{
     display: inline-block;
     border-collapse: collapse;

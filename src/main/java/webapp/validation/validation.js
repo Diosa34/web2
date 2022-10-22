@@ -12,44 +12,40 @@ let y = null
 function validationY(){
     let yElem = document.getElementById("y")
     let warning = document.getElementById("y-warning")
-    if (isNaN(yElem.value) || yElem.value === "" || +yElem.value <= -3 || 3 <= +yElem.value) {
+    if (+yElem.value <= 3 && -3 <= +yElem.value) {
+        warning.style.display = "none"
+        y = yElem.value
+    } else {
         warning.innerText = "Координата Y должна быть числом из диапазона (-3; 3)"
         warning.style.display = "inline-block"
         y = null
-    } else {
-        warning.style.display = "none"
-        y = yElem.value
     }
 }
 
-let selectedElem = null
-function rSelect(elem){
-    selectedElem = elem
-    document.getElementById("selected-elem").value = elem.value
-}
-
-let svg = document.getElementById("svg").getBoundingClientRect() // координаты мыши относительно окна
+let svg = document.getElementById("svg")
 let rWarning = document.getElementById("select-warning")
+let points = []
 
-svg.onclick = function (event) {
-    if (isRSelected()) {
+function svgClick(event) {
+    let r = document.getElementById("r").value
+    if (r !== "Выберите радиус") {
+        let coord = svg.getBoundingClientRect() // координаты элемента относительно окна
         rWarning.style.display = "none"
-        let x = event.clientX - svg.left
-        let y = event.clientY - svg.top
-        let url = new URL('/controller');
-        url.searchParams.set("x", x);
-        url.searchParams.set("y", y);
-        let xhr = new XMLHttpRequest();
-        xhr.open("GET", url, false);
-        xhr.send();
+        let x = ((event.clientX - coord.left) / coord.width - 0.5) * 3 * r
+        let y = -1 * ((event.clientY - coord.top) / coord.height - 0.5) * 3 * r
+        points.push({x: x, y: y, r: r})
     } else {
         rWarning.innerText = "Невозможно определить координату точки"
         rWarning.style.display = "inline-block"
     }
 }
 
-function isRSelected() {
-    let rElem = document.getElementById("select")
-    return (isNaN(rElem.value) || rElem.value === "" || +rElem.value <= 0 || 6 <= +rElem.value)
+function drawPoint(){
+    // svg.innerHTML += "<circle cx='100' cy=\"100\" r='7' fill='black'/>"
 }
 
+function pointSubmit(x, y){
+    document.getElementById("chosen-button").value = x
+    document.getElementById("y").value = y
+    document.getElementById("submit").click()
+}
