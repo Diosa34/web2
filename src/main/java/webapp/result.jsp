@@ -10,19 +10,6 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/result.css">
 </head>
 <body>
-<%--    <div class="image">--%>
-<%--        <%--%>
-<%--            List<Shot> shots = (List<Shot>) request.getServletContext().getAttribute("shots");--%>
-<%--            if (shots != null) {--%>
-<%--                if (shots.get(shots.size() - 1).getArea().startsWith("Точка попала")){--%>
-<%--                    out.println("<img id='gif' src=" + "${pageContext.request.contextPath}/resourses/jandi-boys-over-flowers-кулачки.gif" + "><br>");--%>
-<%--                }--%>
-<%--                else {--%>
-<%--                    out.println("<img id='gif' src=" + "${pageContext.request.contextPath}/resourses/Со-Хён.gif" + "><br>");--%>
-<%--                }--%>
-<%--            }--%>
-<%--        %>--%>
-<%--    </div>--%>
     <table class="result-table">
         <%
             List<Shot> shots = (List<Shot>) request.getServletContext().getAttribute("shots");
@@ -36,17 +23,23 @@
                 out.println("<td>Время обработки</td>");
                 out.println("</tr>");
                 out.println("<tr>");
-                double x = shots.get(shots.size() - 1).getX();
-                double y = shots.get(shots.size() - 1).getY();
-                double r = shots.get(shots.size() - 1).getR();
-                NumberFormat nf = new DecimalFormat("#.########");
-                out.println("<td><b>" + shots.get(shots.size() - 1).getLocalDateTime() + "</b></td>");
-                out.println("<td>" + nf.format(x).replace(",", ".") + "</td>");
-                out.println("<td>" + nf.format(y).replace(",", ".") + "</td>");
-                out.println("<td>" + nf.format(r).replace(",", ".") + "</td>");
-                out.println("<td>" + shots.get(shots.size() - 1).getArea() + "</td>");
-                out.println("<td><b>" + nf.format(shots.get(shots.size() - 1).getExecTime()).replace(",", ".") + "</b></td>");
-                out.println("</tr><br>");
+                int count = 1;
+                if (request.getServletContext().getAttribute("count") != null) {
+                    count = shots.size();
+                }
+                for (int i = 0; i <= (count-1); i++) {
+                    double x = shots.get(i).getX();
+                    double y = shots.get(i).getY();
+                    double r = shots.get(i).getR();
+                    NumberFormat nf = new DecimalFormat("#.########");
+                    out.println("<td><b>" + shots.get(i).getLocalDateTime() + "</b></td>");
+                    out.println("<td>" + nf.format(x).replace(",", ".") + "</td>");
+                    out.println("<td>" + nf.format(y).replace(",", ".") + "</td>");
+                    out.println("<td>" + nf.format(r).replace(",", ".") + "</td>");
+                    out.println("<td>" + shots.get(i).getArea() + "</td>");
+                    out.println("<td><b>" + nf.format(shots.get(i).getExecTime()).replace(",", ".") + "</b></td>");
+                    out.println("</tr><br>");
+                }
             } else {
                 out.println("Запрос неккорректен!!!");
             }

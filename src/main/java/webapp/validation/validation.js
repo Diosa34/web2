@@ -29,23 +29,34 @@ let points = []
 function svgClick(event) {
     let r = document.getElementById("r").value
     if (r !== "Выберите радиус") {
-        let coord = svg.getBoundingClientRect() // координаты элемента относительно окна
+        let svgCoord = svg.getBoundingClientRect() // DOMRect object
         rWarning.style.display = "none"
-        let x = ((event.clientX - coord.left) / coord.width - 0.5) * 3 * r
-        let y = -1 * ((event.clientY - coord.top) / coord.height - 0.5) * 3 * r
+
+
+        let xPartOfSvg = (event.clientX - svgCoord.x)/svgCoord.width // координата(в долях) клика относительно svg
+        let yPartOfSvg = (event.clientY - svgCoord.y)/svgCoord.height
+        drawPoint((xPartOfSvg) * 600, (yPartOfSvg) * 600)
+
+        let x = (xPartOfSvg - 0.5) * 3 * r
+        let y = -1 * (yPartOfSvg - 0.5) * 3 * r
         points.push({x: x, y: y, r: r})
     } else {
-        rWarning.innerText = "Невозможно определить координату точки"
+        rWarning.innerText = "Невозможно определить координату точки: выберите радиус"
         rWarning.style.display = "inline-block"
     }
 }
 
-function drawPoint(){
-    // svg.innerHTML += "<circle cx='100' cy=\"100\" r='7' fill='black'/>"
+function drawPoint(x, y){
+    svg.innerHTML += "<circle cx='" + x + "' cy='" + y + "' r='7' fill='black'/>"
 }
 
-function pointSubmit(x, y){
-    document.getElementById("chosen-button").value = x
-    document.getElementById("y").value = y
-    document.getElementById("submit").click()
+// Отправляем массив точек на сервер
+function pointSubmit(path) {
+    let arr = JSON.stringify(points);
+    let xhr = new XMLHttpRequest();
+    let url = new URL(path);
+    url.searchParams.set("points", arr);
+    url.searchParams.set("count", points.length.toString())
+    xhr.open("GET", url, false);
+    xhr.send();
 }
