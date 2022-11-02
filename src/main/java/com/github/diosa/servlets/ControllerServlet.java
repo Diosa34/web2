@@ -19,10 +19,11 @@ public class ControllerServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         if ((request.getParameter("x") != null &&
             request.getParameter("y") != null &&
-            request.getParameter("r") != null) || (request.getParameter("points") != null)) {
-            getServletContext().getRequestDispatcher("/AreaCheckServlet").forward(request, response);
+            request.getParameter("r") != null) ||
+                (request.getParameter("points") != null)) {
+            request.getRequestDispatcher("/AreaCheckServlet").forward(request, response);
         } else {
-            getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
+            request.getRequestDispatcher("/index.jsp").forward(request, response);
         }
     }
 }

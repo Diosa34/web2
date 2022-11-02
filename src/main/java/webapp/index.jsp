@@ -78,8 +78,23 @@
         <br>
         <button id="pointsSubmit" value="Проверить попадание точек в область"
                 onclick="pointSubmit('http://localhost:8080/${pageContext.request.contextPath}/ControllerServlet')">
-            Проверить попадание точек в область</button>
+            Проверить попадание точек в область</button><br>
         <span id="select-warning" style="display: none"></span>
+        <p>Соответствие цветов радиусам:</p>
+        <table class="color">
+            <tr>
+                <td style="background-color: rgb(29,114,58)"></td>
+                <td>1</td>
+                <td style="background-color: rgb(28,48,108)"></td>
+                <td>2</td>
+                <td style="background-color: rgb(176,23,96)"></td>
+                <td>3</td>
+                <td style="background-color: rgb(173,70,27)"></td>
+                <td>4</td>
+                <td style="background-color: rgb(241,207,14)"></td>
+                <td>5</td>
+            </tr>
+        </table>
     </div>
     <div class="right-block">
         <form method="get" action="${pageContext.request.contextPath}/ControllerServlet" id="form">
@@ -102,7 +117,7 @@
                 <br>
 
                 R:
-                <select size="1" name="r" id="r">
+                <select size="1" name="r" id="r" onchange="validationY()">
                     <option value="Выберите радиус" selected>Выберите радиус</option>
                     <option value="1">1</option>
                     <option value="2">2</option>
@@ -113,39 +128,37 @@
                 <span id="y-warning" style="display: none"></span>
             </div>
             <br>
-            <input id="submit" type="submit">
+            <input id="submit" type="submit" onclick="pointSubmit('http://localhost:8080/${pageContext.request.contextPath}/ControllerServlet')">
         </form>
-        <br>
-
         <table class="result-table">
-                <%
-            if (shots != null) {
-              out.println("<tr>");
-              out.println("<td>Время</td>");
-              out.println("<td>X</td>");
-              out.println("<td>Y</td>");
-              out.println("<td>R</td>");
-              out.println("<td>Попадание</td>");
-              out.println("<td>Время<br> обработки<br> запроса</td>");
-              out.println("</tr>");
-              for (int i = shots.size() - 1; (shots.size() > 10 ) ? i >= shots.size() - 10 : i >= 0; i--) {
+            <%
                 out.println("<tr>");
-                double x = shots.get(i).getX();
-                double y = shots.get(i).getY();
-                double r = shots.get(i).getR();
-                NumberFormat nf = new DecimalFormat("#.########");
-                out.println("<td><b>" + shots.get(i).getLocalDateTime() + "</b></td>");
-                out.println("<td>" + nf.format(x).replace(",", ".") + "</td>");
-                out.println("<td>" + nf.format(y).replace(",", ".") + "</td>");
-                out.println("<td>" + nf.format(r).replace(",", ".") + "</td>");
-                out.println("<td>" + shots.get(i).getArea() + "</td>");
-                out.println("<td><b>" + nf.format(shots.get(i).getExecTime()).replace(",", ".") + "</b></td>");
+                out.println("<td>Время</td>");
+                out.println("<td>X</td>");
+                out.println("<td>Y</td>");
+                out.println("<td>R</td>");
+                out.println("<td>Попадание</td>");
+                out.println("<td>Время<br> обработки<br> запроса</td>");
                 out.println("</tr>");
-              }
-            }
-    %>
+                if (shots != null) {
+                    for (int i = shots.size() - 1; (shots.size() > 50 ) ? i >= shots.size() - 50 : i >= 0; i--) {
+                        out.println("<tr>");
+                        double x = shots.get(i).getX();
+                        double y = shots.get(i).getY();
+                        double r = shots.get(i).getR();
+                        NumberFormat nf = new DecimalFormat("#.########");
+                        out.println("<td><b>" + shots.get(i).getLocalDateTime() + "</b></td>");
+                        out.println("<td>" + nf.format(x).replace(",", ".") + "</td>");
+                        out.println("<td>" + nf.format(y).replace(",", ".") + "</td>");
+                        out.println("<td>" + nf.format(r).replace(",", ".") + "</td>");
+                        out.println("<td>" + shots.get(i).getArea() + "</td>");
+                        out.println("<td><b>" + nf.format(shots.get(i).getExecTime()).replace(",", ".") + "</b></td>");
+                        out.println("</tr>");
+                    }
+                }
+            %>
+        </table>
     </div>
-    </table>
 </div>
 <script type="text/javascript" src="${pageContext.request.contextPath}/validation/validation.js"></script>
 </body>

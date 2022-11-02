@@ -2,6 +2,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="java.text.DecimalFormat" %>
 <%@ page import="java.text.NumberFormat" %>
+<%@ page import="java.util.Objects" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -24,10 +25,11 @@
                 out.println("</tr>");
                 out.println("<tr>");
                 int count = 1;
-                if (request.getServletContext().getAttribute("count") != null) {
-                    count = shots.size();
+                String paramCount = (String) request.getServletContext().getAttribute("count");
+                if (paramCount != null) {
+                    count = Integer.parseInt(paramCount);
                 }
-                for (int i = 0; i <= (count-1); i++) {
+                for (int i = shots.size() - 1; (shots.size() - count) <= i; i--) {
                     double x = shots.get(i).getX();
                     double y = shots.get(i).getY();
                     double r = shots.get(i).getR();
@@ -38,7 +40,7 @@
                     out.println("<td>" + nf.format(r).replace(",", ".") + "</td>");
                     out.println("<td>" + shots.get(i).getArea() + "</td>");
                     out.println("<td><b>" + nf.format(shots.get(i).getExecTime()).replace(",", ".") + "</b></td>");
-                    out.println("</tr><br>");
+                    out.println("</tr>");
                 }
             } else {
                 out.println("Запрос неккорректен!!!");

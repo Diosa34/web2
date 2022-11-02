@@ -38,7 +38,9 @@ public class AreaCheckServlet extends HttpServlet {
                 addPointsToServletContext(request, shot.get("x"), shot.get("y"), shot.get("r"), startTime);
             }
         }
-        request.getServletContext().getRequestDispatcher("/result.jsp").forward(request, response);
+        String count = request.getParameter("count");
+        request.getServletContext().setAttribute("count", count);
+        request.getRequestDispatcher("/result.jsp").forward(request, response);
     }
 
     private void addPointsToServletContext(HttpServletRequest request, String x, String y, String r, long startTime){
@@ -65,7 +67,7 @@ public class AreaCheckServlet extends HttpServlet {
             y = Double.parseDouble(requestY);
             r = Double.parseDouble(requestR);
         } catch (NumberFormatException ex) {
-            shot.setArea("Данные некорректны");
+            shot.setArea("Какие-то параметры не заданы");
             return shot;
         }
         String currentTime = new SimpleDateFormat("HH:mm:ss").format(new Date());
@@ -76,7 +78,7 @@ public class AreaCheckServlet extends HttpServlet {
         if (shot.getValid()) {
             shot.checkArea();
         } else {
-            shot.setArea("Данные некорректны");
+            shot.setArea("Точка за пределами графика");
         }
         shot.setLocalDateTime(currentTime);
         shot.setExecTime((System.nanoTime() - startTime) / 1000000000d);

@@ -1,9 +1,5 @@
 body {
-    background-repeat: no-repeat;
     background-color: #fcab8a;
-    background-image: url("../resourses/lee-min-ho-boys-over-flowers-03.jpg"); /* Цвет фона и путь к файлу */
-    background-size: 40%;
-    background-position: center;
 }
 
 div.header{
@@ -34,15 +30,36 @@ div.numbers {
 
 div.graphic-part {
     display: table-cell;
-    width: 25%;
+    width: 50%;
     vertical-align: top;
 }
 
 div.graphic-part svg{
     aspect-ratio: 1/1;
-    margin-top: 1em;
+    margin-top: 2em;
     font-size: 2rem;
-    width: 100%;
+    width: 50%;
+}
+
+div.graphic-part button#pointsSubmit{
+    text-align: center;
+    background-color: #fc805f;
+    border-width: 1px;
+    border-radius: 3px;
+}
+
+div.graphic-part table.color{
+    margin-right: auto;
+    margin-left: auto;
+}
+
+div.graphic-part svg{
+    margin-right: auto;
+    margin-left: auto;
+}
+
+table.color td{
+    width: 3%;
 }
 
 div.right-block{
@@ -90,8 +107,8 @@ input#submit{
 
 div.right-block form {
     display: inline-block;
-    margin-right: 4%;
-    margin-top: 4%;
+    padding-right: 28%;
+    padding-top: 4%;
 }
 
 table.result-table td{
@@ -101,6 +118,6 @@ table.result-table td{
 
 table.result-table{
     border-collapse: collapse;
-    margin-left: auto;
-    margin-right: 4%;
+    border-width: 1px;
+    width: 72%;
 }

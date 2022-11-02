@@ -1,7 +1,7 @@
 let pressedButton = null
 function xChoose(button) {
     if (pressedButton !== null) {
-        pressedButton.disabled = false
+        pressedButton.disabled = false // кнопка становится активной
     }
     pressedButton = button
     pressedButton.disabled = true
@@ -11,14 +11,15 @@ function xChoose(button) {
 let y = null
 function validationY(){
     let yElem = document.getElementById("y")
+    let rElem = document.getElementById("r")
     let warning = document.getElementById("y-warning")
-    if (+yElem.value <= 3 && -3 <= +yElem.value) {
-        warning.style.display = "none"
-        y = yElem.value
-    } else {
-        warning.innerText = "Координата Y должна быть числом из диапазона (-3; 3)"
+    if (rElem.value !== "Выберите радиус" && (+yElem.value < (-1.5 * rElem.value) || (1.5 * rElem.value) < +yElem.value)) {
+        warning.innerText = "Координата Y должна быть числом из диапазона (" + -1.5 * rElem.value + ", " + (1.5 * rElem.value) + ")"
         warning.style.display = "inline-block"
         y = null
+    } else {
+        warning.style.display = "none"
+        y = yElem.value
     }
 }
 
@@ -31,7 +32,6 @@ function svgClick(event) {
     if (r !== "Выберите радиус") {
         let svgCoord = svg.getBoundingClientRect() // DOMRect object
         rWarning.style.display = "none"
-
 
         let xPartOfSvg = (event.clientX - svgCoord.x)/svgCoord.width // координата(в долях) клика относительно svg
         let yPartOfSvg = (event.clientY - svgCoord.y)/svgCoord.height
@@ -56,7 +56,9 @@ function pointSubmit(path) {
     let xhr = new XMLHttpRequest();
     let url = new URL(path);
     url.searchParams.set("points", arr);
-    url.searchParams.set("count", points.length.toString())
+    let count = points.length.toString()
+    url.searchParams.set("count", count)
     xhr.open("GET", url, false);
     xhr.send();
+    window.location.href = "http://localhost:8080//web2-1.0-SNAPSHOT/result.jsp"
 }

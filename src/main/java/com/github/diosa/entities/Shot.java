@@ -3,17 +3,18 @@ package com.github.diosa.entities;
 import java.util.Map;
 
 public class Shot {
-    public static final int MIN_X = -4;
-    public static final int MAX_X = 4;
-    public static final double MIN_Y = -3;
-    public static final double MAX_Y = 3;
+    public static final double MIN_X = -1.5;
+    public static final double MAX_X = 1.5;
+    public static final double MIN_Y = -1.5;
+    public static final double MAX_Y = 1.5;
     public static final double MIN_R = 1;
     public static final double MAX_R = 5;
 
+//  1-зелёный, 2-синий, 3-розовый, 4-коричневый 5-жёлтый
     public static final Map<Double, String> colorMap = Map.of(1.0, "rgb(29,114,58)", 2.0, "rgb(28,48,108)",
             3.0, "rgb(176,23,96)", 4.0, "rgb(173,70,27)", 5.0, "rgb(241,207,14)");
     public static final Map<Double, String> colorAMap = Map.of(1.0, "rgba(29,114,58,0.2)", 2.0, "rgba(28,48,108,0.2)",
-            3.0, "rgba(176,23,96,0.2)", 4.0, "rgba(173,70,27,0.2)", 5.0, "rgb(241,207,14,0.2)");
+            3.0, "rgba(176,23,96,0.2)", 4.0, "rgba(173,70,27,0.2)", 5.0, "rgb(241,207,14,0.4)");
 
     public void setX(double x) {
         this.x = x;
@@ -55,8 +56,8 @@ public class Shot {
 
     public void checkValid() {
         if (isInit) {
-            valid = (x >= MIN_X && x <= MAX_X &&
-                     y >= MIN_Y && y <= MAX_Y &&
+            valid = (x >= MIN_X*r && x <= MAX_X*r &&
+                     y >= MIN_Y*r && y <= MAX_Y*r &&
                      r >= MIN_R && r <= MAX_R);
         } else {
             valid = false;
