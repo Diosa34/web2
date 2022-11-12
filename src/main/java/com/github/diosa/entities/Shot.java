@@ -41,24 +41,28 @@ public class Shot {
     private String currentTime;
     private double execTime;
 
-    public Shot() {
-        isInit = false;
-        valid = false;
-    }
-
     public Shot(double x, double y, double r) {
         this.x = x;
         this.y = y;
         this.r = r;
         isInit = true;
-        checkValid();
     }
 
-    public void checkValid() {
+    public void checkValidForGraphic() {
         if (isInit) {
             valid = (x >= MIN_X*r && x <= MAX_X*r &&
                      y >= MIN_Y*r && y <= MAX_Y*r &&
                      r >= MIN_R && r <= MAX_R);
+        } else {
+            valid = false;
+        }
+    }
+
+    public void checkValidForForm() {
+        if (isInit) {
+            valid = (x >= -4 && x <= 4 &&
+                    y >= -3 && y <= 3 &&
+                    r >= MIN_R && r <= MAX_R);
         } else {
             valid = false;
         }

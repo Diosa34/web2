@@ -39,6 +39,8 @@ div.graphic-part svg{
     margin-top: 2em;
     font-size: 2rem;
     width: 50%;
+    margin-right: auto;
+    margin-left: auto;
 }
 
 div.graphic-part button#pointsSubmit{
@@ -49,11 +51,6 @@ div.graphic-part button#pointsSubmit{
 }
 
 div.graphic-part table.color{
-    margin-right: auto;
-    margin-left: auto;
-}
-
-div.graphic-part svg{
     margin-right: auto;
     margin-left: auto;
 }
@@ -77,23 +74,9 @@ input#x{
     font-family: "Times New Roman", serif;
 }
 
-span#x-warning{
-    height: 20px;
-    color: #dc143c;
-    border: 1px solid crimson;
-    border-radius: 3px;
-    background: #fcc6b3;
-    padding: 0;
-    font-size: 1rem;
-}
-
 div.data{
     text-align: left;
     white-space: nowrap;
-}
-
-button[onclick^="r"] {
-    background-color: #fddad1;
 }
 
 input#submit{

@@ -11,10 +11,9 @@ function xChoose(button) {
 let y = null
 function validationY(){
     let yElem = document.getElementById("y")
-    let rElem = document.getElementById("r")
     let warning = document.getElementById("y-warning")
-    if (rElem.value !== "Выберите радиус" && (+yElem.value < (-1.5 * rElem.value) || (1.5 * rElem.value) < +yElem.value)) {
-        warning.innerText = "Координата Y должна быть числом из диапазона (" + -1.5 * rElem.value + ", " + (1.5 * rElem.value) + ")"
+    if (+yElem.value < -3 || 3 < +yElem.value) {
+        warning.innerText = "Координата Y должна быть числом из диапазона (-3, 3)"
         warning.style.display = "inline-block"
         y = null
     } else {
@@ -41,7 +40,7 @@ function svgClick(event) {
         let y = -1 * (yPartOfSvg - 0.5) * 3 * r
         points.push({x: x, y: y, r: r})
     } else {
-        rWarning.innerText = "Невозможно определить координату точки: выберите радиус"
+        rWarning.innerText = "Невозможно определить координаты точек: выберите радиус"
         rWarning.style.display = "inline-block"
     }
 }
@@ -52,13 +51,18 @@ function drawPoint(x, y){
 
 // Отправляем массив точек на сервер
 function pointSubmit(path) {
-    let arr = JSON.stringify(points);
-    let xhr = new XMLHttpRequest();
-    let url = new URL(path);
-    url.searchParams.set("points", arr);
-    let count = points.length.toString()
-    url.searchParams.set("count", count)
-    xhr.open("GET", url, false);
-    xhr.send();
-    window.location.href = "http://localhost:8080//web2-1.0-SNAPSHOT/result.jsp"
+    let r = document.getElementById("r").value
+    if (r !== "Выберите радиус") {
+        let arr = JSON.stringify(points);
+        let xhr = new XMLHttpRequest();
+        let url = new URL(path);
+        url.searchParams.set("points", arr);
+        xhr.open("GET", url, false);
+        xhr.send();
+        window.location.href = "http://localhost:8080//web2-1.0-SNAPSHOT/result.jsp"
+    } else {
+        rWarning.innerText = "Невозможно определить координаты точек: выберите радиус"
+        rWarning.style.display = "inline-block"
+    }
+
 }

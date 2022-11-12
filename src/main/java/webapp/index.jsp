@@ -57,7 +57,7 @@
                     List<Shot> shots = (List<Shot>) request.getServletContext().getAttribute("shots");
                     if (shots != null) {
                         for (Shot i : shots) {
-                            if (i.getArea() != "Данные некорректны") {
+                            if (i.getArea() != "Данные некорректны" || i.getArea() != "Какие-то параметры не заданы") {
                                 NumberFormat nf = new DecimalFormat("#.########");
                                 double x = (((i.getX() / i.getR()) / 3) + 0.5) * 600;
                                 double y = (((i.getY() / i.getR()) / -3) + 0.5) * 600;
@@ -128,20 +128,19 @@
                 <span id="y-warning" style="display: none"></span>
             </div>
             <br>
-            <input id="submit" type="submit" onclick="pointSubmit('http://localhost:8080/${pageContext.request.contextPath}/ControllerServlet')">
+            <input id="submit" type="submit">
         </form>
         <table class="result-table">
-            <%
-                out.println("<tr>");
-                out.println("<td>Время</td>");
-                out.println("<td>X</td>");
-                out.println("<td>Y</td>");
-                out.println("<td>R</td>");
-                out.println("<td>Попадание</td>");
-                out.println("<td>Время<br> обработки<br> запроса</td>");
-                out.println("</tr>");
-                if (shots != null) {
-                    for (int i = shots.size() - 1; (shots.size() > 50 ) ? i >= shots.size() - 50 : i >= 0; i--) {
+            <%= "<tr>"%>
+            <%= "<td>Время</td>"%>
+            <%= "<td>X</td>"%>
+            <%= "<td>Y</td>"%>
+            <%= "<td>R</td>"%>
+            <%= "<td>Попадание</td>"%>
+            <%= "<td>Время<br> обработки<br> запроса</td>"%>
+            <%= "</tr>"%>
+            <% if (shots != null) {
+                    for (int i = shots.size() - 1; (shots.size() > 20 ) ? i >= shots.size() - 20 : i >= 0; i--) {
                         out.println("<tr>");
                         double x = shots.get(i).getX();
                         double y = shots.get(i).getY();

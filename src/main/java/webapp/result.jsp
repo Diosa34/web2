@@ -24,12 +24,12 @@
                 out.println("<td>Время обработки</td>");
                 out.println("</tr>");
                 out.println("<tr>");
-                int count = 1;
-                String paramCount = (String) request.getServletContext().getAttribute("count");
+                int countOfNewPoints = 1;
+                Integer paramCount = (Integer) request.getServletContext().getAttribute("countOfNewPoints");
                 if (paramCount != null) {
-                    count = Integer.parseInt(paramCount);
+                    countOfNewPoints = paramCount;
                 }
-                for (int i = shots.size() - 1; (shots.size() - count) <= i; i--) {
+                for (int i = shots.size() - 1; (shots.size() - countOfNewPoints) <= i; i--) {
                     double x = shots.get(i).getX();
                     double y = shots.get(i).getY();
                     double r = shots.get(i).getR();
