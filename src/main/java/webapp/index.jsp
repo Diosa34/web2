@@ -2,6 +2,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="java.text.NumberFormat" %>
 <%@ page import="java.text.DecimalFormat" %>
+<%@ page import="java.util.Objects" %>
 <%@ page contentType="text/html;charset=utf-8" %>
 <html lang="ru">
 <head>
@@ -57,7 +58,7 @@
                     List<Shot> shots = (List<Shot>) request.getServletContext().getAttribute("shots");
                     if (shots != null) {
                         for (Shot i : shots) {
-                            if (i.getArea() != "Данные некорректны" || i.getArea() != "Какие-то параметры не заданы") {
+                            if (!Objects.equals(i.getArea(), "Данные некорректны") && !Objects.equals(i.getArea(), "Какие-то параметры не заданы")) {
                                 NumberFormat nf = new DecimalFormat("#.########");
                                 double x = (((i.getX() / i.getR()) / 3) + 0.5) * 600;
                                 double y = (((i.getY() / i.getR()) / -3) + 0.5) * 600;
@@ -77,7 +78,7 @@
         </div>
         <br>
         <button id="pointsSubmit" value="Проверить попадание точек в область"
-                onclick="pointSubmit('http://localhost:8080/${pageContext.request.contextPath}/ControllerServlet')">
+                onclick="pointSubmit('${pageContext.request.contextPath}')">
             Проверить попадание точек в область</button><br>
         <span id="select-warning" style="display: none"></span>
         <p>Соответствие цветов радиусам:</p>
@@ -117,7 +118,7 @@
                 <br>
 
                 R:
-                <select size="1" name="r" id="r" onchange="validationY()">
+                <select size="1" name="r" id="r">
                     <option value="Выберите радиус" selected>Выберите радиус</option>
                     <option value="1">1</option>
                     <option value="2">2</option>

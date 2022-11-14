@@ -15,20 +15,17 @@ public class ControllerServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String x = request.getParameter("x");
-        String y = request.getParameter("y");
-        String r = request.getParameter("r");
-        String points = request.getParameter("points");
-
         ServletContext servletContext = getServletContext();
+        servletContext.setAttribute("x", request.getParameter("x"));
+        servletContext.setAttribute("y", request.getParameter("y"));
+        servletContext.setAttribute("r", request.getParameter("r"));
+        servletContext.setAttribute("points", request.getParameter("points"));
 
-        if ( x != null || y != null || r != null) {
-            servletContext.setAttribute("x", x);
-            servletContext.setAttribute("y", y);
-            servletContext.setAttribute("r", r);
+        if (servletContext.getAttribute("x") != null &&
+            servletContext.getAttribute("y") != null &&
+            servletContext.getAttribute("r") != null) {
             request.getRequestDispatcher("/AreaCheckServlet").forward(request, response);
-        } else if (points != null) {
-            servletContext.setAttribute("points", points);
+        } else if (servletContext.getAttribute("points") != null) {
             request.getRequestDispatcher("/AreaCheckServlet").forward(request, response);
         } else {
             request.getRequestDispatcher("/index.jsp").forward(request, response);

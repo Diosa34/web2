@@ -24,11 +24,7 @@
                 out.println("<td>Время обработки</td>");
                 out.println("</tr>");
                 out.println("<tr>");
-                int countOfNewPoints = 1;
-                Integer paramCount = (Integer) request.getServletContext().getAttribute("countOfNewPoints");
-                if (paramCount != null) {
-                    countOfNewPoints = paramCount;
-                }
+                Integer countOfNewPoints = (Integer) request.getServletContext().getAttribute("countOfNewPoints");
                 for (int i = shots.size() - 1; (shots.size() - countOfNewPoints) <= i; i--) {
                     double x = shots.get(i).getX();
                     double y = shots.get(i).getY();
@@ -43,7 +39,7 @@
                     out.println("</tr>");
                 }
             } else {
-                out.println("Запрос неккорректен!!!");
+                out.println("Запрос некорректен!!!");
             }
         %>
     </table><br>

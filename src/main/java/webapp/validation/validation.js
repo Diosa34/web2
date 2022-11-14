@@ -12,7 +12,7 @@ let y = null
 function validationY(){
     let yElem = document.getElementById("y")
     let warning = document.getElementById("y-warning")
-    if (+yElem.value < -3 || 3 < +yElem.value) {
+    if (+yElem.value <= -3 || 3 <= +yElem.value) {
         warning.innerText = "Координата Y должна быть числом из диапазона (-3, 3)"
         warning.style.display = "inline-block"
         y = null
@@ -55,11 +55,11 @@ function pointSubmit(path) {
     if (r !== "Выберите радиус") {
         let arr = JSON.stringify(points);
         let xhr = new XMLHttpRequest();
-        let url = new URL(path);
+        let url = new URL("http://localhost:14100" + path + "/ControllerServlet");
         url.searchParams.set("points", arr);
         xhr.open("GET", url, false);
         xhr.send();
-        window.location.href = "http://localhost:8080//web2-1.0-SNAPSHOT/result.jsp"
+        window.location.href = "http://localhost:14100" + path + "/result.jsp"
     } else {
         rWarning.innerText = "Невозможно определить координаты точек: выберите радиус"
         rWarning.style.display = "inline-block"

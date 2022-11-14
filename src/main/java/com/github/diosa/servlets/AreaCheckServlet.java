@@ -31,13 +31,15 @@ public class AreaCheckServlet extends HttpServlet {
         ServletContext servletContext = getServletContext();
         String x = (String) servletContext.getAttribute("x");
         String y = (String) servletContext.getAttribute("y");
-        String r = (String) servletContext.getAttribute("z");
+        String r = (String) servletContext.getAttribute("r");
         String points = (String) servletContext.getAttribute("points");
 
-        if (x != null || y != null || r != null) {
+        if (x != null && y != null && r != null) {
             addPointsToServletContext(x, y, r, startTime, true);
+            servletContext.setAttribute("countOfNewPoints", 1);
         } else {
             List<Map<String, String>> pointsList = new ObjectMapper().readValue(points, new TypeReference<List<Map<String, String>>>(){});
+
             for (Map<String, String> shot: pointsList) {
                 addPointsToServletContext(shot.get("x"), shot.get("y"), shot.get("r"), startTime, false);
             }
