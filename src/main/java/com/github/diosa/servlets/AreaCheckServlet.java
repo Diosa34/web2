@@ -68,11 +68,11 @@ public class AreaCheckServlet extends HttpServlet {
         shot.setExecTime(0.0);
         shot.setLocalDateTime("0");
         try {
-            x = Double.parseDouble(requestX);
-            y = Double.parseDouble(requestY);
-            r = Double.parseDouble(requestR);
+            x = Double.parseDouble(requestX.replace(",", "."));
+            y = Double.parseDouble(requestY.replace(",", "."));
+            r = Double.parseDouble(requestR.replace(",", "."));
         } catch (NumberFormatException ex) {
-            shot.setArea("Какие-то параметры не заданы");
+            shot.setArea("Данные некорректны");
             return shot;
         }
         String currentTime = new SimpleDateFormat("HH:mm:ss").format(new Date());
@@ -89,7 +89,7 @@ public class AreaCheckServlet extends HttpServlet {
         if (shot.getValid()) {
             shot.checkArea();
         } else {
-            shot.setArea("Координаты некорректны");
+            shot.setArea("Координаты не входят в область определения");
         }
         shot.setLocalDateTime(currentTime);
         shot.setExecTime((System.nanoTime() - startTime) / 1000000000d);
